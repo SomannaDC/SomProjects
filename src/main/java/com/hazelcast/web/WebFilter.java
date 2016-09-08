@@ -318,19 +318,14 @@ public class WebFilter implements Filter {
 
     private void addSessionCookie(final RequestWrapper req, final String sessionId) {
         final Cookie sessionCookie = new Cookie(sessionCookieName, sessionId);
-        
         //Changes Added to take the session path from Init Parameter if passed
         //Context Path will be used as Session Path if the Init Param is not passed to keep it backward compatible
-        String path=null;
-        
-        if(null != sessionCookiePath && !sessionCookiePath.isEmpty()){
-        	path = sessionCookiePath;
+        String path = null;
+        if (null != sessionCookiePath && !sessionCookiePath.isEmpty()) {
+            path = sessionCookiePath;
+        } else {
+            path = req.getContextPath();
         }
-        else
-        {
-        	path = req.getContextPath();
-        }
-        
         if ("".equals(path)) {
             path = "/";
         }
@@ -556,3 +551,4 @@ public class WebFilter implements Filter {
         }
     } // END of RequestWrapper
 } // END of WebFilter
+
